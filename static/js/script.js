@@ -4,13 +4,13 @@
  */
 
 // ===== DOM Ready Handler =====
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('NutriMenu Landing Page - Loaded');
-    
-    // Initialize all interactive features
-    initializeClickHandlers();
-    initializeScrollAnimations();
-    initializeHeaderEffects();
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("NutriMenu Landing Page - Loaded");
+
+  // Initialize all interactive features
+  initializeClickHandlers();
+  initializeScrollAnimations();
+  initializeHeaderEffects();
 });
 
 // ===== Click Handlers for Action Buttons =====
@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
  * Routes different button actions to appropriate functions
  */
 function initializeClickHandlers() {
-    // Get all buttons with data-action attribute
-    const actionButtons = document.querySelectorAll('[data-action]');
-    
-    actionButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const action = this.getAttribute('data-action');
-            handleButtonAction(action, e);
-        });
+  // Get all buttons with data-action attribute
+  const actionButtons = document.querySelectorAll("[data-action]");
+
+  actionButtons.forEach((button) => {
+    button.addEventListener("click", function (e) {
+      const action = this.getAttribute("data-action");
+      handleButtonAction(action, e);
     });
+  });
 }
 
 /**
@@ -36,18 +36,18 @@ function initializeClickHandlers() {
  * @param {Event} event - The click event object
  */
 function handleButtonAction(action, event) {
-    event.preventDefault();
-    
-    switch(action) {
-        case 'login':
-            handleLoginClick();
-            break;
-        case 'start':
-            handleStartClick();
-            break;
-        default:
-            console.log('Action triggered:', action);
-    }
+  event.preventDefault();
+
+  switch (action) {
+    case "login":
+      handleLoginClick();
+      break;
+    case "start":
+      handleStartClick();
+      break;
+    default:
+      console.log("Action triggered:", action);
+  }
 }
 
 /**
@@ -55,11 +55,11 @@ function handleButtonAction(action, event) {
  * Currently shows a placeholder feedback
  */
 function handleLoginClick() {
-    console.log('Login button clicked');
-    // Placeholder: Show user feedback
-    showNotification('Login functionality coming soon!', 'info');
-    // TODO: Integrate with Flask backend authentication
-    // window.location.href = '/login';
+  console.log("Login button clicked");
+  // Placeholder: Show user feedback
+  showNotification("Login functionality coming soon!", "info");
+  // TODO: Integrate with Flask backend authentication
+  // window.location.href = '/login';
 }
 
 /**
@@ -67,11 +67,14 @@ function handleLoginClick() {
  * Currently shows a placeholder feedback
  */
 function handleStartClick() {
-    console.log('Start building menu button clicked');
-    // Placeholder: Show user feedback
-    showNotification('Getting ready to start your menu... Redirecting soon!', 'info');
-    // TODO: Integrate with Flask backend and data entry form
-    // window.location.href = '/create-menu';
+  console.log("Start building menu button clicked");
+  // Placeholder: Show user feedback
+  showNotification(
+    "Getting ready to start your menu... Redirecting soon!",
+    "info",
+  );
+  // TODO: Integrate with Flask backend and data entry form
+  // window.location.href = '/create-menu';
 }
 
 /**
@@ -79,14 +82,14 @@ function handleStartClick() {
  * @param {string} message - The message to display
  * @param {string} type - Type of notification: 'info', 'success', 'error', 'warning'
  */
-function showNotification(message, type = 'info') {
-    // Create notification container if it doesn't exist
-    let notificationContainer = document.getElementById('notification-container');
-    
-    if (!notificationContainer) {
-        notificationContainer = document.createElement('div');
-        notificationContainer.id = 'notification-container';
-        notificationContainer.style.cssText = `
+function showNotification(message, type = "info") {
+  // Create notification container if it doesn't exist
+  let notificationContainer = document.getElementById("notification-container");
+
+  if (!notificationContainer) {
+    notificationContainer = document.createElement("div");
+    notificationContainer.id = "notification-container";
+    notificationContainer.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
@@ -94,13 +97,13 @@ function showNotification(message, type = 'info') {
             max-width: 400px;
             pointer-events: none;
         `;
-        document.body.appendChild(notificationContainer);
-    }
-    
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.style.cssText = `
+    document.body.appendChild(notificationContainer);
+  }
+
+  // Create notification element
+  const notification = document.createElement("div");
+  notification.className = `notification notification-${type}`;
+  notification.style.cssText = `
         background-color: ${getNotificationColor(type)};
         color: #f5f5f7;
         padding: 16px 20px;
@@ -112,24 +115,24 @@ function showNotification(message, type = 'info') {
         pointer-events: auto;
         cursor: pointer;
     `;
-    
-    notification.textContent = message;
-    
-    // Add close on click
-    notification.addEventListener('click', function() {
-        this.style.animation = 'slideInRight 0.3s ease-out reverse';
-        setTimeout(() => this.remove(), 300);
-    });
-    
-    notificationContainer.appendChild(notification);
-    
-    // Auto-remove after 4 seconds
-    setTimeout(() => {
-        if (notification.parentElement) {
-            notification.style.animation = 'slideInRight 0.3s ease-out reverse';
-            setTimeout(() => notification.remove(), 300);
-        }
-    }, 4000);
+
+  notification.textContent = message;
+
+  // Add close on click
+  notification.addEventListener("click", function () {
+    this.style.animation = "slideInRight 0.3s ease-out reverse";
+    setTimeout(() => this.remove(), 300);
+  });
+
+  notificationContainer.appendChild(notification);
+
+  // Auto-remove after 4 seconds
+  setTimeout(() => {
+    if (notification.parentElement) {
+      notification.style.animation = "slideInRight 0.3s ease-out reverse";
+      setTimeout(() => notification.remove(), 300);
+    }
+  }, 4000);
 }
 
 /**
@@ -138,13 +141,13 @@ function showNotification(message, type = 'info') {
  * @returns {string} CSS color value
  */
 function getNotificationColor(type) {
-    const colors = {
-        'info': '#6366f1',      // Indigo
-        'success': '#10b981',   // Green
-        'error': '#ef4444',     // Red
-        'warning': '#f59e0b'    // Amber
-    };
-    return colors[type] || colors['info'];
+  const colors = {
+    info: "#6366f1", // Indigo
+    success: "#10b981", // Green
+    error: "#ef4444", // Red
+    warning: "#f59e0b", // Amber
+  };
+  return colors[type] || colors["info"];
 }
 
 // ===== Scroll Animation Handler =====
@@ -153,30 +156,30 @@ function getNotificationColor(type) {
  * Uses Intersection Observer API for performance
  */
 function initializeScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all feature cards and steps
-    const animatableElements = document.querySelectorAll(
-        '.feature-card, .step, .section-title, .section-subtitle'
-    );
-    
-    animatableElements.forEach(el => {
-        el.style.opacity = '0';
-        observer.observe(el);
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.animation = "fadeInUp 0.6s ease-out forwards";
+        observer.unobserve(entry.target);
+      }
     });
+  }, observerOptions);
+
+  // Observe all feature cards and steps
+  const animatableElements = document.querySelectorAll(
+    ".feature-card, .step, .section-title, .section-subtitle",
+  );
+
+  animatableElements.forEach((el) => {
+    el.style.opacity = "0";
+    observer.observe(el);
+  });
 }
 
 // ===== Header Effects =====
@@ -185,23 +188,27 @@ function initializeScrollAnimations() {
  * Changes header styling based on scroll position
  */
 function initializeHeaderEffects() {
-    const header = document.querySelector('.header');
-    let lastScrollY = 0;
-    
-    window.addEventListener('scroll', function() {
-        const scrollY = window.scrollY;
-        
-        // Update header appearance based on scroll
-        if (scrollY > 50) {
-            header.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.15)';
-            header.style.backgroundColor = 'rgba(15, 20, 25, 0.95)';
-        } else {
-            header.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.12)';
-            header.style.backgroundColor = 'rgba(15, 20, 25, 0.8)';
-        }
-        
-        lastScrollY = scrollY;
-    }, { passive: true });
+  const header = document.querySelector(".header");
+  let lastScrollY = 0;
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      const scrollY = window.scrollY;
+
+      // Update header appearance based on scroll
+      if (scrollY > 50) {
+        header.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.15)";
+        header.style.backgroundColor = "rgba(15, 20, 25, 0.95)";
+      } else {
+        header.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.12)";
+        header.style.backgroundColor = "rgba(15, 20, 25, 0.8)";
+      }
+
+      lastScrollY = scrollY;
+    },
+    { passive: true },
+  );
 }
 
 // ===== Smooth Scroll Enhancement =====
@@ -209,21 +216,21 @@ function initializeHeaderEffects() {
  * Enhance navigation links with smooth scroll behavior
  * Handles anchor link navigation
  */
-document.addEventListener('click', function(e) {
-    const href = e.target.getAttribute('href');
-    
-    // Check if it's an anchor link (but not login or action buttons)
-    if (href && href.startsWith('#') && href !== '#') {
-        e.preventDefault();
-        const targetElement = document.querySelector(href);
-        
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+document.addEventListener("click", function (e) {
+  const href = e.target.getAttribute("href");
+
+  // Check if it's an anchor link (but not login or action buttons)
+  if (href && href.startsWith("#") && href !== "#") {
+    e.preventDefault();
+    const targetElement = document.querySelector(href);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
+  }
 });
 
 // ===== Accessibility: Keyboard Navigation =====
@@ -231,15 +238,15 @@ document.addEventListener('click', function(e) {
  * Add keyboard accessibility for buttons
  * Allows Tab navigation and Enter/Space activation
  */
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-        const activeElement = document.activeElement;
-        
-        if (activeElement && activeElement.getAttribute('data-action')) {
-            if (e.key === ' ') e.preventDefault(); // Prevent page scroll on Space
-            activeElement.click();
-        }
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" || e.key === " ") {
+    const activeElement = document.activeElement;
+
+    if (activeElement && activeElement.getAttribute("data-action")) {
+      if (e.key === " ") e.preventDefault(); // Prevent page scroll on Space
+      activeElement.click();
     }
+  }
 });
 
 // ===== Utility: Check if element is in viewport =====
@@ -249,13 +256,14 @@ document.addEventListener('keydown', function(e) {
  * @returns {boolean} True if element is in viewport
  */
 function isElementInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
 }
 
 // ===== Performance: Throttle Function =====
@@ -267,17 +275,17 @@ function isElementInViewport(element) {
  * @returns {Function} Throttled function
  */
 function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
+  let inThrottle;
+  return function () {
+    const args = arguments;
+    const context = this;
+
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
 }
 
 // ===== Analytics Placeholder =====
@@ -288,17 +296,17 @@ function throttle(func, limit) {
  * @param {Object} eventData - Additional event data
  */
 function trackEvent(eventName, eventData = {}) {
-    // Placeholder for analytics implementation
-    console.log('Event tracked:', {
-        event: eventName,
-        timestamp: new Date().toISOString(),
-        data: eventData
-    });
-    
-    // TODO: Integrate with analytics service (Google Analytics, Mixpanel, etc.)
-    // if (window.gtag) {
-    //     gtag('event', eventName, eventData);
-    // }
+  // Placeholder for analytics implementation
+  console.log("Event tracked:", {
+    event: eventName,
+    timestamp: new Date().toISOString(),
+    data: eventData,
+  });
+
+  // TODO: Integrate with analytics service (Google Analytics, Mixpanel, etc.)
+  // if (window.gtag) {
+  //     gtag('event', eventName, eventData);
+  // }
 }
 
 // ===== Development: Log Application State =====
@@ -306,25 +314,25 @@ function trackEvent(eventName, eventData = {}) {
  * Development helper to log application state
  */
 function logAppState() {
-    console.group('NutriMenu Application State');
-    console.log('Viewport Size:', {
-        width: window.innerWidth,
-        height: window.innerHeight
-    });
-    console.log('Scroll Position:', {
-        x: window.scrollX,
-        y: window.scrollY
-    });
-    console.log('Active Element:', document.activeElement);
-    console.groupEnd();
+  console.group("NutriMenu Application State");
+  console.log("Viewport Size:", {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  console.log("Scroll Position:", {
+    x: window.scrollX,
+    y: window.scrollY,
+  });
+  console.log("Active Element:", document.activeElement);
+  console.groupEnd();
 }
 
 // Export for potential future module usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        handleButtonAction,
-        showNotification,
-        trackEvent,
-        logAppState
-    };
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    handleButtonAction,
+    showNotification,
+    trackEvent,
+    logAppState,
+  };
 }
