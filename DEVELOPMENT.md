@@ -25,13 +25,27 @@
    pip install -r requirements.txt
    ```
 
-3. **Run the Development Server**
+3. **Configure Environment Variables**
+
+   Copy `.env.example` to `.env` and customize values as needed:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   The `.env` file contains:
+   - `FLASK_HOST` - Server host (default: localhost)
+   - `FLASK_PORT` - Server port (default: 5000)
+   - `FLASK_ENV` - Environment (development/production)
+   - `DEBUG` - Debug mode (default: True)
+   - `SECRET_KEY` - Flask secret key (change in production)
+
+4. **Run the Development Server**
 
    ```bash
    python app.py
    ```
 
-   The application will be available at: **http://localhost:5000**
+   The application will be available at: **http://localhost:5000** (or your configured host/port)
 
 ---
 

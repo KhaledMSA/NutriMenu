@@ -8,8 +8,12 @@ authentication, database, and external APIs.
 """
 
 from flask import Flask, render_template, jsonify
+from dotenv import load_dotenv
 import os
 from datetime import datetime
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Initialize Flask Application
 app = Flask(__name__, 
@@ -17,9 +21,10 @@ app = Flask(__name__,
             static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
 # ===== Configuration =====
-app.config['SECRET_KEY'] = 'nutrimenu-dev-key-change-in-production'
-app.config['DEBUG'] = True  # Development mode; set to False in production
-app.config['ENV'] = 'development'
+# All configuration values are loaded from environment variables for security
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
+app.config['DEBUG'] = os.getenv('DEBUG', 'True').lower() == 'true'
+app.config['ENV'] = os.getenv('FLASK_ENV', 'development')
 
 # ===== Error Handlers =====
 @app.errorhandler(404)
@@ -165,6 +170,11 @@ if __name__ == '__main__':
     # Note: In production, use a proper WSGI server (Gunicorn, uWSGI, etc.)
     # Do NOT use Flask's development server in production
     
+    # Load environment variables for server configuration
+    host = os.getenv('FLASK_HOST', 'localhost')
+    port = int(os.getenv('FLASK_PORT', 5000))
+    debug = os.getenv('DEBUG', 'True').lower() == 'true'
+    
     # Create app instance
     app = create_app()
     
@@ -173,13 +183,13 @@ if __name__ == '__main__':
     print('NutriMenu - Development Server')
     print('=' * 60)
     print('Starting Flask application...')
-    print('Visit: http://localhost:5000')
+    print(f'Visit: http://{host}:{port}')
     print('Press Ctrl+C to stop the server')
     print('=' * 60)
     
     app.run(
-        host='localhost',
-        port=5000,
-        debug=True,
+        host=host,
+        port=port,
+        debug=debug,
         use_reloader=True
     )
