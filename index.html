@@ -1,156 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NutriMenu - AI-Powered Digital Restaurant Menus</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="static/css/style.css" />
+  </head>
+  <body>
     <!-- Header/Navigation -->
     <header class="header">
-        <nav class="navbar">
-            <div class="navbar-container">
-                <a href="#" class="logo">
-                    <span class="logo-icon">🍽️</span>
-                    <span class="logo-text">NutriMenu</span>
-                </a>
-                <button class="login-btn" data-action="login">Login</button>
-            </div>
-        </nav>
+      <nav class="navbar">
+        <div class="navbar-container">
+          <a href="#" class="logo">
+            <span class="logo-icon">🍽️</span>
+            <span class="logo-text">NutriMenu</span>
+          </a>
+          <button class="login-btn" data-action="login">Login</button>
+        </div>
+      </nav>
     </header>
 
     <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-headline">Transform Your Restaurant Menu</h1>
-                    <p class="hero-subheadline">
-                        Automated digital menus with AI-powered 3D models and precise nutritional facts. 
-                        Let technology handle the complexity so you can focus on your food.
-                    </p>
-                    <button class="cta-button primary-cta" data-action="start">Start Building Your Menu</button>
-                </div>
-                <div class="hero-visual">
-                    <div class="hero-placeholder">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="100" cy="60" r="35" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
-                            <path d="M 60 120 L 70 100 L 90 110 L 110 80 L 130 100 L 140 120 Z" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
-                            <rect x="50" y="130" width="100" height="40" rx="5" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
-                        </svg>
-                    </div>
-                </div>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-container">
+          <div class="hero-content">
+            <h1 class="hero-headline">Transform Your Restaurant Menu</h1>
+            <p class="hero-subheadline">
+              Automated digital menus with AI-powered 3D models and precise
+              nutritional facts. Let technology handle the complexity so you can
+              focus on your food.
+            </p>
+            <button class="cta-button primary-cta" data-action="start">
+              Start Building Your Menu
+            </button>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-placeholder">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle
+                  cx="100"
+                  cy="60"
+                  r="35"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  opacity="0.3"
+                />
+                <path
+                  d="M 60 120 L 70 100 L 90 110 L 110 80 L 130 100 L 140 120 Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  opacity="0.3"
+                />
+                <rect
+                  x="50"
+                  y="130"
+                  width="100"
+                  height="40"
+                  rx="5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  opacity="0.3"
+                />
+              </svg>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- Features Section -->
-        <section class="features">
-            <div class="features-container">
-                <h2 class="section-title">Why Choose NutriMenu?</h2>
-                <p class="section-subtitle">Simplify your operations with intelligent automation</p>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📝</div>
-                        <h3 class="feature-title">Effortless Data Entry</h3>
-                        <p class="feature-description">
-                            Step-by-step guided process. No complex typing. 
-                            Just smooth selections and intuitive forms.
-                        </p>
-                    </div>
+      <!-- Features Section -->
+      <section class="features">
+        <div class="features-container">
+          <h2 class="section-title">Why Choose NutriMenu?</h2>
+          <p class="section-subtitle">
+            Simplify your operations with intelligent automation
+          </p>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3 class="feature-title">Automated Calculations</h3>
-                        <p class="feature-description">
-                            Calorie and allergen calculations happen instantly. 
-                            Accuracy without the manual work.
-                        </p>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon">🤖</div>
-                        <h3 class="feature-title">AI 3D Models</h3>
-                        <p class="feature-description">
-                            Beautiful, realistic 3D visualizations of your dishes. 
-                            Generated automatically by AI.
-                        </p>
-                    </div>
-                </div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">📝</div>
+              <h3 class="feature-title">Effortless Data Entry</h3>
+              <p class="feature-description">
+                Step-by-step guided process. No complex typing. Just smooth
+                selections and intuitive forms.
+              </p>
             </div>
-        </section>
 
-        <!-- How It Works Section -->
-        <section class="how-it-works">
-            <div class="how-it-works-container">
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Three simple steps to your digital menu</p>
-                
-                <div class="steps-timeline">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3 class="step-title">Add Your Dishes</h3>
-                        <p class="step-description">
-                            Use our intuitive interface to input dish names, ingredients, 
-                            and descriptions. No technical knowledge required.
-                        </p>
-                    </div>
-
-                    <div class="step-connector"></div>
-
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3 class="step-title">AI Does the Heavy Lifting</h3>
-                        <p class="step-description">
-                            Our AI automatically calculates nutrition, allergies, 
-                            and generates stunning 3D food models.
-                        </p>
-                    </div>
-
-                    <div class="step-connector"></div>
-
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3 class="step-title">Launch Your Menu</h3>
-                        <p class="step-description">
-                            Publish instantly. Your digital menu is live, modern, 
-                            and always up-to-date.
-                        </p>
-                    </div>
-                </div>
-
-                <button class="cta-button secondary-cta" data-action="start">Get Started Today</button>
+            <div class="feature-card">
+              <div class="feature-icon">⚡</div>
+              <h3 class="feature-title">Automated Calculations</h3>
+              <p class="feature-description">
+                Calorie and allergen calculations happen instantly. Accuracy
+                without the manual work.
+              </p>
             </div>
-        </section>
 
-        <!-- Call-to-Action Section -->
-        <section class="cta-section">
-            <div class="cta-section-content">
-                <h2>Ready to Elevate Your Restaurant?</h2>
-                <p>Join forward-thinking restaurant owners who are automating their menus</p>
-                <button class="cta-button primary-cta large" data-action="start">Start Building Your Menu</button>
+            <div class="feature-card">
+              <div class="feature-icon">🤖</div>
+              <h3 class="feature-title">AI 3D Models</h3>
+              <p class="feature-description">
+                Beautiful, realistic 3D visualizations of your dishes. Generated
+                automatically by AI.
+              </p>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="how-it-works">
+        <div class="how-it-works-container">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle">
+            Three simple steps to your digital menu
+          </p>
+
+          <div class="steps-timeline">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h3 class="step-title">Add Your Dishes</h3>
+              <p class="step-description">
+                Use our intuitive interface to input dish names, ingredients,
+                and descriptions. No technical knowledge required.
+              </p>
+            </div>
+
+            <div class="step-connector"></div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <h3 class="step-title">AI Does the Heavy Lifting</h3>
+              <p class="step-description">
+                Our AI automatically calculates nutrition, allergies, and
+                generates stunning 3D food models.
+              </p>
+            </div>
+
+            <div class="step-connector"></div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <h3 class="step-title">Launch Your Menu</h3>
+              <p class="step-description">
+                Publish instantly. Your digital menu is live, modern, and always
+                up-to-date.
+              </p>
+            </div>
+          </div>
+
+          <button class="cta-button secondary-cta" data-action="start">
+            Get Started Today
+          </button>
+        </div>
+      </section>
+
+      <!-- Call-to-Action Section -->
+      <section class="cta-section">
+        <div class="cta-section-content">
+          <h2>Ready to Elevate Your Restaurant?</h2>
+          <p>
+            Join forward-thinking restaurant owners who are automating their
+            menus
+          </p>
+          <button class="cta-button primary-cta large" data-action="start">
+            Start Building Your Menu
+          </button>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <p>&copy; 2026 NutriMenu. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#" class="footer-link">Privacy Policy</a>
-                    <span class="footer-separator">•</span>
-                    <a href="#" class="footer-link">Terms of Service</a>
-                    <span class="footer-separator">•</span>
-                    <a href="#" class="footer-link">Contact</a>
-                </div>
-            </div>
+      <div class="footer-container">
+        <div class="footer-content">
+          <p>&copy; 2026 NutriMenu. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <span class="footer-separator">•</span>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <span class="footer-separator">•</span>
+            <a href="#" class="footer-link">Contact</a>
+          </div>
         </div>
+      </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <script src="static/js/script.js"></script>
+  </body>
 </html>

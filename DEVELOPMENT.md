@@ -3,12 +3,14 @@
 ## Running the Application
 
 ### Prerequisites
+
 - Python 3.8+
 - pip (Python package manager)
 
 ### Setup Instructions
 
 1. **Create a Virtual Environment** (Optional but recommended)
+
    ```bash
    python -m venv venv
    # On Windows
@@ -18,15 +20,17 @@
    ```
 
 2. **Install Dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Run the Development Server**
+
    ```bash
    python app.py
    ```
-   
+
    The application will be available at: **http://localhost:5000**
 
 ---
@@ -64,6 +68,7 @@ NutriMenu/
 ## Development Notes
 
 ### Phase 1 - Landing Page (Current)
+
 - ✅ Static landing page created
 - ✅ Modern dark theme styling
 - ✅ Responsive design (mobile, tablet, desktop)
@@ -71,21 +76,25 @@ NutriMenu/
 - ✅ Flask server setup
 
 ### Phase 2 - Authentication (Planned)
+
 - Login/Registration system
 - User session management
 - Password reset flow
 
 ### Phase 3 - Data Entry (Planned)
+
 - Menu item form
 - Ingredient input
 - Photo upload
 
 ### Phase 4 - Menu Generation (Planned)
+
 - API integration (nutrition data)
 - AI 3D model generation
 - Dynamic menu display
 
 ### Phase 5 - Live Example (Planned)
+
 - Update landing page with live menu preview
 - Customer-facing digital menu interface
 
@@ -102,22 +111,24 @@ NutriMenu/
 
 ## Technology Stack
 
-| Layer        | Technology                 |
-| ------------ | -------------------------- |
-| **Backend**  | Python 3.8+, Flask 3.0.0   |
-| **Frontend** | HTML5, CSS3, Vanilla JS    |
-| **Database** | SQLite (Phase 2+)          |
-| **Server**   | Gunicorn (production)      |
+| Layer        | Technology               |
+| ------------ | ------------------------ |
+| **Backend**  | Python 3.8+, Flask 3.0.0 |
+| **Frontend** | HTML5, CSS3, Vanilla JS  |
+| **Database** | SQLite (Phase 2+)        |
+| **Server**   | Gunicorn (production)    |
 
 ---
 
 ## Future API Integrations
 
 ### Nutrition & Allergen Calculation
+
 - Integration with USDA FoodData Central API or similar
 - Automatic calorie and allergen labeling from ingredient data
 
 ### AI 3D Model Generation
+
 - Integration with AI image-to-3D APIs (e.g., Tripo AI, Meshy, or similar)
 - Automatic 3D food visualization from basic photos
 
@@ -126,6 +137,7 @@ NutriMenu/
 ## Deployment Notes
 
 For production deployment:
+
 1. Set `DEBUG = False` in `app.py`
 2. Use a production WSGI server (Gunicorn, uWSGI)
 3. Set up proper environment variables
@@ -134,6 +146,7 @@ For production deployment:
 6. Set up proper logging and monitoring
 
 Example Gunicorn command:
+
 ```bash
 gunicorn -w 4 -b 0.0.0.0:5000 app:app
 ```
