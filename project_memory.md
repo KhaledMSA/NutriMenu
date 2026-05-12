@@ -1,7 +1,7 @@
 # NutriMenu — Project Memory
 
-> **Last Updated:** 2026-05-09  
-> **Status:** Project Initialization
+> **Last Updated:** 2026-05-12  
+> **Status:** Phase 2 (Authentication) In Progress
 
 ---
 
@@ -11,13 +11,13 @@
 
 ### MVP Phased Approach
 
-| Phase       | Deliverable                                  | Status     |
-| ----------- | -------------------------------------------- | ---------- |
-| **Phase 1** | Static Landing Page explaining the product   | 🔜 Next    |
-| **Phase 2** | Login / Authentication system                | ⬜ Planned |
-| **Phase 3** | Data Entry Form for restaurant owners        | ⬜ Planned |
-| **Phase 4** | Dynamic Menu Generation from form inputs     | ⬜ Planned |
-| **Phase 5** | Update Landing Page with a live menu example | ⬜ Planned |
+| Phase       | Deliverable                                  | Status         |
+| ----------- | -------------------------------------------- | -------------- |
+| **Phase 1** | Static Landing Page explaining the product   | ✅ Completed   |
+| **Phase 2** | Login / Authentication system (Auth0)        | 🔄 In Progress |
+| **Phase 3** | Data Entry Form for restaurant owners        | ⬜ Planned     |
+| **Phase 4** | Dynamic Menu Generation from form inputs     | ⬜ Planned     |
+| **Phase 5** | Update Landing Page with a live menu example | ⬜ Planned     |
 
 ### Architecture Notes (Future Integrations)
 
@@ -40,17 +40,19 @@
 
 ## 3. Tech Stack & Constraints
 
-| Layer        | Technology                           |
-| ------------ | ------------------------------------ |
-| **Backend**  | Python · Flask                       |
-| **Database** | SQLite                               |
-| **Frontend** | Pure HTML · CSS · Vanilla JavaScript |
+| Layer          | Technology                           |
+| -------------- | ------------------------------------ |
+| **Backend**    | Python · Flask                       |
+| **Database**   | SQLite                               |
+| **Frontend**   | Pure HTML · CSS · Vanilla JavaScript |
+| **Deployment** | Render                               |
 
 ### Hard Constraints
 
 - **No React, No Node.js.** Backend and frontend are strictly Python/Flask with pure HTML/CSS/JS.
 - **Language: English only.** All UI text, error messages, code comments, variable names, and documentation must be in English.
 - **Incremental development.** Each phase is prompted and built step-by-step. Do not build ahead.
+- **Deployment Protocol:** The live site connected to Render must be updated and tested locally before pushing any commits.
 
 ---
 
@@ -65,11 +67,13 @@
 
 ## 5. Project Structure (Planned)
 
-```
+```text
 NutriMenu/
 ├── app.py                  # Main Flask application
 ├── project_memory.md       # This file — full project context
 ├── BRAIN.md                # Current phase focus & next steps
+├── .env                    # Environment variables (DO NOT COMMIT)
+├── requirements.txt        # Python dependencies for Render
 ├── templates/              # Jinja2 HTML templates
 ├── static/
 │   ├── css/                # Stylesheets
@@ -89,3 +93,40 @@ NutriMenu/
 | 2026-05-09 | Project initialized with phased MVP approach | Incremental delivery, avoid scope creep |
 | 2026-05-09 | Flask + SQLite + Vanilla JS stack selected   | Simplicity, no framework overhead       |
 | 2026-05-09 | English-only constraint established          | Consistency across code and UI          |
+| 2026-05-12 | Auth0 selected for Phase 2 Authentication    | "Enterprise-grade security, free tier"  |
+
+## 7. Setup & Deployment
+
+### Local Development Setup
+
+1. **Prerequisites:** Python 3.8+ and pip.
+2. **Virtual Environment & Dependencies:**
+   ```bash
+   python -m venv venv
+   # On Windows: venv\Scripts\activate
+   # On macOS/Linux: source venv/bin/activate
+   pip install -r requirements.txt
+   ```
+3. **Environment Variables (.env):**
+   Create a .env file in the project root containing the following configurations (never commit this file):
+
+   ```
+   # Flask Configuration
+   FLASK_APP=app.py
+   FLASK_ENV=development
+   DEBUG=True
+   SECRET_KEY=your_secure_random_string
+
+   # Auth0 Configuration
+   AUTH0_DOMAIN=your-tenant.region.auth0.com
+   AUTH0_CLIENT_ID=your_auth0_client_id
+   AUTH0_CLIENT_SECRET=your_auth0_client_secret
+   ```
+
+4. **Run The Application:**
+
+   ```bash
+   python app.py
+   ```
+
+The application will be available at: http://localhost:5000

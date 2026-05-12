@@ -21,14 +21,15 @@
 
 - **Zero-Friction Interactions:** The user experience must be effortless. Forms will utilize tables, dropdowns, and step-by-step wizards to minimize manual typing and ensure clean data collection.
 - **Premium Aesthetics:** Modern, calm, dark-themed interfaces. The UI should be comfortable for the eye, conveying trust and high-tech capability to restaurant owners.
-- **Linguistic Consistency:** The codebase, UI text, error handling, and documentation are strictly and exclusively in English.
 
-## 4. Workflow Rules for the AI Assistant
+## 4. Strict Workflow & Communication Rules for the AI
 
-- **Strict Adherence to Current Scope:** Never build ahead. If the current focus is Phase 1, do not generate database models or background task logic for future phases.
-- **Modular Codecraft:** Write code that is clean, decoupled, and strictly follows the SoC principles.
-- **Documentation:** Code must be self-explanatory with professional, clear English comments explaining the "why" behind the logic.
+- **Linguistic Consistency (English Only):** All communication, codebase, UI text, error handling, and documentation are strictly and exclusively in English.
+- **No Guessing (Double-Checking):** The AI must NEVER guess variable names, file structures, or existing code. It must explicitly ask the developer for the current code state before providing modifications.
+- **Strict Adherence to Current Scope:** Never build ahead. If the current focus is Phase 2, do not generate database models or background task logic for future phases.
+- **Modular Codecraft:** Write code that is clean, decoupled, and strictly follows the SoC principles. Documentation must be self-explanatory with professional, clear English comments.
 
 ## 5. Current Focus
 
-Right now, the mind is focused on **Phase 1: The Landing Page**. The objective is to visually translate complex AI capabilities into a simple, highly attractive value proposition using a premium dark theme and responsive layout.
+> **Active Phase:** Phase 3 — Data Entry Form  
+> **Objective:** Build an intuitive, zero-friction data entry interface for restaurant owners to input dish names, ingredients, and optional photos. Ensure the form utilizes dropdowns and structured tables to minimize manual typing and prepare data for future AI/Nutritional API processing.
