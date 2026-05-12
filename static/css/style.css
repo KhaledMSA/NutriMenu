@@ -719,3 +719,33 @@ a:hover {
     font-size: var(--font-size-3xl);
   }
 }
+
+/* ===== Auth & Navigation Enhancements (Phase 2) ===== */
+.auth-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-greeting {
+  color: var(--text-color, #f5f5f7);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.auth-btn {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid currentColor;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+}
+
+.auth-btn:hover {
+  background-color: var(--text-color, #f5f5f7);
+  color: var(--primary, #0f1b2d);
+}

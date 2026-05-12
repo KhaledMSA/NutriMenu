@@ -52,29 +52,29 @@ function handleButtonAction(action, event) {
 
 /**
  * Handle login button click
- * Currently shows a placeholder feedback
+ * Redirects the user to the Flask /login route (Auth0)
  */
 function handleLoginClick() {
-  console.log("Login button clicked");
-  // Placeholder: Show user feedback
-  showNotification("Login functionality coming soon!", "info");
-  // TODO: Integrate with Flask backend authentication
-  // window.location.href = '/login';
+  window.location.href = "/login";
 }
 
 /**
  * Handle start/CTA button click
- * Currently shows a placeholder feedback
+ * Redirects to login if logged out. Shows notification if logged in.
  */
 function handleStartClick() {
-  console.log("Start building menu button clicked");
-  // Placeholder: Show user feedback
-  showNotification(
-    "Getting ready to start your menu... Redirecting soon!",
-    "info",
-  );
-  // TODO: Integrate with Flask backend and data entry form
-  // window.location.href = '/create-menu';
+  // Check if user is logged in by looking for the logout button in the DOM
+  const isUserLoggedIn = document.querySelector('a[href="/logout"]') !== null;
+
+  if (isUserLoggedIn) {
+    showNotification(
+      "Welcome back! Menu builder (Phase 3) coming soon.",
+      "success",
+    );
+    // Future Phase 3 Route: window.location.href = '/create-menu';
+  } else {
+    window.location.href = "/login";
+  }
 }
 
 /**
