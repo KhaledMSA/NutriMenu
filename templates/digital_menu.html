@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ menu.restaurant_name }} - Digital Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/digital_menu.css') }}" />
+  </head>
+  <body class="menu-body">
+    <!-- ===== Restaurant Header ===== -->
+    <header class="menu-header">
+      <div class="menu-header-inner">
+        {% if menu.logo_filename %}
+          <img
+            class="menu-logo"
+            src="{{ url_for('static', filename='uploads/' + menu.logo_filename) }}"
+            alt="{{ menu.restaurant_name }} logo"
+          />
+        {% else %}
+          <div class="menu-logo menu-logo-placeholder" aria-hidden="true">🍽️</div>
+        {% endif %}
+        <h1 class="menu-restaurant-name">{{ menu.restaurant_name }}</h1>
+        <p class="menu-tagline">Powered by NutriMenu</p>
+      </div>
+    </header>
+
+    <!-- ===== Meal Grid =====
+         Each card carries the meal data as JSON in a data-attribute so that
+         the modal logic in digital_menu.js can render the details on demand.
+         This keeps the markup compact and the JS decoupled from server templating.
+    -->
+    <main class="menu-main">
+      <section class="meal-grid" id="meal-grid">
+        {% for meal in menu.meals %}
+          {% set meal_data = {
+            'name': meal.name,
+            'description': meal.description,
+            'ingredients': meal.ingredients,
+            'photo_url': (url_for('static', filename='uploads/' + meal.photo_filename) if meal.photo_filename else ''),
+          } %}
+          <button
+            type="button"
+            class="meal-card"
+            data-meal='{{ meal_data | tojson }}'
+          >
+            <div class="meal-card-image">
+              {% if meal.photo_filename %}
+                <img
+                  src="{{ url_for('static', filename='uploads/' + meal.photo_filename) }}"
+                  alt="{{ meal.name }}"
+                  loading="lazy"
+                />
+              {% else %}
+                <div class="meal-card-image-placeholder" aria-hidden="true">🍽️</div>
+              {% endif %}
+            </div>
+            <div class="meal-card-body">
+              <h2 class="meal-card-name">{{ meal.name }}</h2>
+              <span class="meal-card-cta">Tap for details</span>
+            </div>
+          </button>
+        {% endfor %}
+      </section>
+    </main>
+
+    <!-- ===== Modal (rendered once, populated by JS) ===== -->
+    <div class="meal-modal" id="meal-modal" hidden aria-hidden="true" role="dialog">
+      <div class="meal-modal-backdrop" data-close-modal></div>
+      <article class="meal-modal-panel" role="document" aria-labelledby="modal-title">
+        <button
+          type="button"
+          class="meal-modal-close"
+          aria-label="Close"
+          data-close-modal
+        >
+          &times;
+        </button>
+
+        <div class="meal-modal-image" id="modal-image"></div>
+
+        <div class="meal-modal-content">
+          <h2 class="meal-modal-title" id="modal-title"></h2>
+          <p class="meal-modal-description" id="modal-description"></p>
+
+          <h3 class="meal-modal-section-title">Ingredients</h3>
+          <ul class="meal-modal-ingredients" id="modal-ingredients"></ul>
+
+          <div class="meal-modal-meta">
+            <div class="meta-tile">
+              <span class="meta-label">Calories</span>
+              <span class="meta-value">— kcal</span>
+              <span class="meta-hint">AI engine — Phase 5</span>
+            </div>
+            <div class="meta-tile">
+              <span class="meta-label">Allergens</span>
+              <span class="meta-value">—</span>
+              <span class="meta-hint">AI engine — Phase 5</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <footer class="menu-footer">
+      <p>&copy; {{ current_year }} {{ menu.restaurant_name }} · Built with NutriMenu</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/digital_menu.js') }}"></script>
+  </body>
+</html>

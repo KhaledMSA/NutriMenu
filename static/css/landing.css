@@ -1,0 +1,140 @@
+/* ===========================
+   NutriMenu - Landing Page Additions
+   "Menu Examples" section. Reuses dark theme vars from style.css.
+   =========================== */
+
+.menu-examples {
+  padding: var(--spacing-4xl) var(--spacing-md);
+  background: var(--bg-primary);
+}
+
+.menu-examples-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-2xl);
+}
+
+@media (min-width: 720px) {
+  .examples-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .examples-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.example-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.example-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.example-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.example-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  overflow: hidden;
+}
+
+.example-image-1 {
+  background: linear-gradient(135deg, #1f2a36 0%, #2d4a3e 100%);
+}
+
+.example-image-2 {
+  background: linear-gradient(135deg, #2a2240 0%, #4a2d4a 100%);
+}
+
+.example-image-3 {
+  background: linear-gradient(135deg, #2d2418 0%, #4a3a1f 100%);
+}
+
+.example-image-emoji {
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
+}
+
+.example-image-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.example-card-body {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.example-card-name {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+}
+
+.example-card-desc {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.example-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.example-chip {
+  font-size: var(--font-size-sm);
+  padding: 4px var(--spacing-md);
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  color: var(--accent-light);
+  font-weight: 500;
+}
+
+.example-chip-warn {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.examples-footnote {
+  text-align: center;
+  margin-top: var(--spacing-2xl);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-base);
+}

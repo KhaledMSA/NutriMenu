@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Profile - NutriMenu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  </head>
+  <body>
+    {% include "_nav.html" %}
+
+    <main class="form-page">
+      <div class="form-container">
+        <header class="form-header">
+          <h1 class="form-title">
+            {% if profile %}Edit Restaurant Profile{% else %}Set Up Your Restaurant{% endif %}
+          </h1>
+          <p class="form-subtitle">
+            Your profile is shared across every menu you publish. One account,
+            one restaurant — keep it consistent.
+          </p>
+        </header>
+
+        <div class="flash-stack" id="profile-feedback" hidden></div>
+
+        <form
+          class="menu-form"
+          id="profile-form"
+          action="{{ url_for('profile') }}"
+          method="POST"
+          enctype="multipart/form-data"
+          novalidate
+        >
+          <div class="form-group">
+            <label for="restaurant_name" class="form-label">Restaurant Name</label>
+            <input
+              type="text"
+              id="restaurant_name"
+              name="restaurant_name"
+              class="form-input"
+              placeholder="e.g., The Olive Grove"
+              maxlength="120"
+              value="{{ profile.restaurant_name if profile else '' }}"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Restaurant Logo</label>
+            <div class="file-upload">
+              <input
+                type="file"
+                id="restaurant_logo"
+                name="restaurant_logo"
+                class="file-input"
+                accept="image/png, image/jpeg, image/jpg, image/webp"
+              />
+              <label for="restaurant_logo" class="file-label" id="restaurant-logo-label">
+                <div class="image-preview" id="restaurant-logo-preview" hidden>
+                  {% if profile and profile.logo_filename %}
+                    <img
+                      src="{{ url_for('static', filename='uploads/' + profile.logo_filename) }}"
+                      alt="Current logo"
+                    />
+                  {% endif %}
+                </div>
+                <span class="file-icon" id="restaurant-logo-icon">🏷️</span>
+                <span class="file-text" id="restaurant-logo-text">
+                  {% if profile and profile.logo_filename %}
+                    Replace current logo
+                  {% else %}
+                    Upload your logo (PNG, JPG, WEBP)
+                  {% endif %}
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a href="/" class="form-btn form-btn-secondary">Cancel</a>
+            <button type="submit" class="form-btn form-btn-primary" id="profile-submit-btn">
+              {% if profile %}Save Changes{% else %}Continue to Menu Builder{% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    {% if profile and profile.logo_filename %}
+    <script>
+      // Reveal the pre-loaded preview tile if a logo already exists.
+      document.getElementById("restaurant-logo-preview").hidden = false;
+      document.getElementById("restaurant-logo-icon").hidden = true;
+    </script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+  </body>
+</html>

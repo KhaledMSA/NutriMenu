@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - NutriMenu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  </head>
+  <body>
+    {% include "_nav.html" %}
+
+    <main class="dashboard-page">
+      <header class="dashboard-header">
+        <h1 class="dashboard-title">
+          Welcome back, {{ user.get('name', 'Chef') }}
+        </h1>
+        <p class="dashboard-subtitle">
+          {% if profile %}
+            Managing <strong>{{ profile.restaurant_name }}</strong>.
+          {% else %}
+            Let's start by setting up your restaurant.
+          {% endif %}
+        </p>
+      </header>
+
+      <section class="dashboard-grid">
+        <!-- Profile Card -->
+        <article class="dashboard-card">
+          <div class="dashboard-card-icon">🏷️</div>
+          <h2 class="dashboard-card-title">Restaurant Profile</h2>
+          <p class="dashboard-card-status">
+            {% if profile %}
+              <span class="status-pill status-ok">Set up</span>
+              {{ profile.restaurant_name }}
+            {% else %}
+              <span class="status-pill status-todo">Not set up</span>
+              Required before building a menu
+            {% endif %}
+          </p>
+          <a href="{{ url_for('profile') }}" class="form-btn form-btn-primary">
+            {% if profile %}Edit Profile{% else %}Set Up Profile{% endif %}
+          </a>
+        </article>
+
+        <!-- Menu Card -->
+        <article class="dashboard-card">
+          <div class="dashboard-card-icon">🍽️</div>
+          <h2 class="dashboard-card-title">Your Menu</h2>
+          <p class="dashboard-card-status">
+            {% if has_menu %}
+              <span class="status-pill status-ok">Published</span>
+              {{ meal_count }} meal{{ '' if meal_count == 1 else 's' }}
+            {% else %}
+              <span class="status-pill status-todo">No menu yet</span>
+              Build your first menu in minutes
+            {% endif %}
+          </p>
+          {% if has_menu %}
+            <a href="{{ url_for('edit_menu') }}" class="form-btn form-btn-primary">Edit Menu</a>
+          {% else %}
+            <a href="{{ url_for('create_menu') }}" class="form-btn form-btn-primary">Create Menu</a>
+          {% endif %}
+        </article>
+
+        <!-- Public URL Card -->
+        <article class="dashboard-card">
+          <div class="dashboard-card-icon">🔗</div>
+          <h2 class="dashboard-card-title">Public Menu Link</h2>
+          {% if public_menu_url %}
+            <p class="dashboard-card-status">
+              <span class="status-pill status-ok">Live</span>
+              Share this URL with diners
+            </p>
+            <div class="public-url">
+              <code id="public-url-text">{{ public_menu_url }}</code>
+              <button
+                type="button"
+                class="form-btn form-btn-secondary small"
+                id="copy-url-btn"
+                data-copy-target="public-url-text"
+              >
+                Copy
+              </button>
+            </div>
+            <a
+              href="{{ url_for('public_menu', restaurant_slug=profile.slug) }}"
+              class="form-btn form-btn-ghost"
+              target="_blank"
+              rel="noopener"
+            >
+              View Public Menu ↗
+            </a>
+          {% else %}
+            <p class="dashboard-card-status">
+              <span class="status-pill status-todo">Pending</span>
+              Available after you publish a menu
+            </p>
+          {% endif %}
+        </article>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  </body>
+</html>
