@@ -1,0 +1,33 @@
+{#
+  Shared site navigation.
+  Renders different link sets for anonymous vs authenticated visitors.
+  `user`, `has_profile`, `has_menu` are injected by app.py inject_app_info().
+#}
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="{{ url_for('index') }}" class="logo">
+        <span class="logo-icon">🍽️</span>
+        <span class="logo-text">NutriMenu</span>
+      </a>
+
+      {% if user %}
+        <div class="nav-links" role="navigation" aria-label="Owner navigation">
+          <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+          <a href="{{ url_for('profile') }}" class="nav-link">My Profile</a>
+          {% if has_menu %}
+            <a href="{{ url_for('edit_menu') }}" class="nav-link">Edit Menu</a>
+          {% else %}
+            <a href="{{ url_for('create_menu') }}" class="nav-link">Create Menu</a>
+          {% endif %}
+          <span class="user-greeting">{{ user.get('name', 'Chef') }}</span>
+          <a href="{{ url_for('logout') }}" class="auth-btn">Logout</a>
+        </div>
+      {% else %}
+        <div class="auth-container">
+          <a href="{{ url_for('login') }}" class="auth-btn">Login</a>
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+</header>

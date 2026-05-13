@@ -9,8 +9,9 @@ authlib==1.3.0
 
 requests==2.31.0
 
+SQLAlchemy==2.0.25
+Flask-SQLAlchemy==3.1.1
+
 # Future Dependencies (to be added as needed)
-# SQLAlchemy==2.0.0  # Database ORM
-# Flask-SQLAlchemy==3.1.1  # SQLAlchemy integration
 # gunicorn==21.2.0  # Production WSGI server
 # pytest==7.4.3  # Testing framework

@@ -1,0 +1,436 @@
+/* ===========================
+   NutriMenu - Create Menu Form Styles
+   Reuses dark theme variables from style.css
+   =========================== */
+
+.form-page {
+  min-height: calc(100vh - 80px);
+  padding: var(--spacing-3xl) var(--spacing-md);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 720px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: var(--spacing-2xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.form-header {
+  margin-bottom: var(--spacing-2xl);
+  text-align: center;
+}
+
+.form-title {
+  font-size: var(--font-size-3xl);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm);
+  letter-spacing: -0.02em;
+}
+
+.form-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+/* ===== Flash Messages ===== */
+.flash-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.flash {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: 10px;
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--border-color);
+}
+
+.flash-success {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #6ee7b7;
+}
+
+.flash-error {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* ===== Form Layout ===== */
+.menu-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  resize: vertical;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  background: var(--bg-hover);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.form-hint {
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+/* ===== File Upload ===== */
+.file-upload {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.file-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--bg-tertiary);
+  border: 1px dashed var(--border-color);
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.file-label:hover,
+.file-input:focus + .file-label {
+  border-color: var(--accent-primary);
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.file-icon {
+  font-size: 1.5rem;
+}
+
+.file-text {
+  font-size: var(--font-size-base);
+  word-break: break-all;
+}
+
+/* ===== Actions ===== */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.form-btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: 10px;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  font-family: var(--font-family-primary);
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
+}
+
+.form-btn-primary {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+.form-btn-primary:hover {
+  background: var(--accent-primary-hover);
+  transform: translateY(-1px);
+}
+
+.form-btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+.form-btn-secondary:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+/* ===== Header CTA (Create Menu pill in navbar) ===== */
+.auth-btn-primary {
+  background: var(--accent-primary);
+  color: #ffffff !important;
+  border-color: var(--accent-primary);
+}
+
+.auth-btn-primary:hover {
+  background: var(--accent-primary-hover);
+  border-color: var(--accent-primary-hover);
+}
+
+/* ===========================
+   Menu Builder (Phase 3 refactor)
+   =========================== */
+
+.builder-container {
+  max-width: 880px;
+}
+
+.builder-form {
+  gap: var(--spacing-2xl);
+}
+
+.builder-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-light);
+}
+
+.builder-section:first-of-type {
+  padding-top: 0;
+  border-top: none;
+}
+
+.section-heading {
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.section-heading-row.tight {
+  margin-bottom: var(--spacing-sm);
+}
+
+.empty-hint {
+  color: var(--text-tertiary);
+  text-align: center;
+  padding: var(--spacing-xl);
+  border: 1px dashed var(--border-color);
+  border-radius: 10px;
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+/* ===== Ghost / small buttons ===== */
+.form-btn-ghost {
+  background: transparent;
+  color: var(--accent-light);
+  border-color: var(--border-color);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+.form-btn-ghost:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.form-btn-ghost.small {
+  padding: 4px var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+/* ===== Icon button (X remove) ===== */
+.icon-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* ===== Meal blocks ===== */
+.meal-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.meal-block {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.meal-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.meal-block-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--text-primary);
+}
+
+/* ===== Ingredient rows ===== */
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.ingredient-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr auto;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.ingredient-row .form-input {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+/* ===== Weight (grams) input ===== */
+.weight-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.weight-input-group .form-input {
+  width: 100%;
+  padding-right: 56px; /* room for the unit label */
+  -moz-appearance: textfield;
+}
+
+.weight-input-group .form-input::-webkit-outer-spin-button,
+.weight-input-group .form-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.weight-unit {
+  position: absolute;
+  right: var(--spacing-md);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ===== Image preview tile (used on profile + meal photo) ===== */
+.image-preview {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .form-container {
+    padding: var(--spacing-xl);
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-btn {
+    width: 100%;
+  }
+
+  .ingredient-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ingredient-row .ingredient-amount-input {
+    grid-column: 1 / 2;
+  }
+}

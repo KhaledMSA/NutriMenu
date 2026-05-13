@@ -4,30 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NutriMenu - AI-Powered Digital Restaurant Menus</title>
-    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
   </head>
   <body>
-    <!-- Header/Navigation -->
-    <header class="header">
-      <nav class="navbar">
-        <div class="navbar-container">
-          <a href="/" class="logo">
-            <span class="logo-icon">🍽️</span>
-            <span class="logo-text">NutriMenu</span>
-          </a>
-          <div class="auth-container">
-            {% if user %}
-            <span class="user-greeting">
-              Welcome, {{ user.get('name', 'Chef') }}
-            </span>
-            <a href="/logout" class="auth-btn">Logout</a>
-            {% else %}
-            <a href="/login" class="auth-btn">Login</a>
-            {% endif %}
-          </div>
-        </div>
-      </nav>
-    </header>
+    {% include "_nav.html" %}
 
     <!-- Main Content -->
     <main>
@@ -41,9 +23,13 @@
               nutritional facts. Let technology handle the complexity so you can
               focus on your food.
             </p>
-            <button class="cta-button primary-cta" data-action="start">
-              Start Building Your Menu
-            </button>
+            {# Server-rendered routing decision — no JS branching. #}
+            <a
+              href="{% if user %}{{ url_for('dashboard') }}{% else %}{{ url_for('login') }}{% endif %}"
+              class="cta-button primary-cta"
+            >
+              {% if user %}Go to Dashboard{% else %}Start Building Your Menu{% endif %}
+            </a>
           </div>
           <div class="hero-visual">
             <div class="hero-placeholder">
@@ -161,25 +147,63 @@
             </div>
           </div>
 
-          <button class="cta-button secondary-cta" data-action="start">
-            Get Started Today
-          </button>
         </div>
       </section>
 
-      <!-- Call-to-Action Section -->
-      <section class="cta-section">
-        <div class="cta-section-content">
-          <h2>Ready to Elevate Your Restaurant?</h2>
-          <p>
-            Join forward-thinking restaurant owners who are automating their
-            menus
+      <!-- Menu Examples Section — populated from real published restaurants -->
+      {% if published_menus %}
+      <section class="menu-examples">
+        <div class="menu-examples-container">
+          <h2 class="section-title">Restaurants on NutriMenu</h2>
+          <p class="section-subtitle">
+            Real menus from real restaurants — tap any card to view
           </p>
-          <button class="cta-button primary-cta large" data-action="start">
-            Start Building Your Menu
-          </button>
+
+          {% set example_emojis = ['🥗', '🍣', '🍝', '🍔', '🍱', '🥘'] %}
+          <div class="examples-grid">
+            {% for item in published_menus %}
+            <a
+              href="{{ url_for('public_menu', restaurant_slug=item.slug) }}"
+              class="example-card-link"
+              target="_blank"
+              rel="noopener"
+            >
+              <article class="example-card">
+                <div class="example-image example-image-{{ (loop.index0 % 3) + 1 }}" aria-hidden="true">
+                  {% if item.first_meal_photo %}
+                    <img
+                      src="{{ url_for('static', filename='uploads/' + item.first_meal_photo) }}"
+                      alt="{{ item.first_meal_name }}"
+                      class="example-image-photo"
+                      loading="lazy"
+                    />
+                  {% else %}
+                    <span class="example-image-emoji">
+                      {{ example_emojis[loop.index0 % example_emojis|length] }}
+                    </span>
+                  {% endif %}
+                </div>
+                <div class="example-card-body">
+                  <h3 class="example-card-name">{{ item.restaurant_name }}</h3>
+                  <p class="example-card-desc">
+                    {{ item.meal_count }} meal{{ '' if item.meal_count == 1 else 's' }}
+                    {% if item.first_meal_name %} · {{ item.first_meal_name }}{% endif %}
+                  </p>
+                  <div class="example-meta">
+                    <span class="example-chip">View live menu →</span>
+                  </div>
+                </div>
+              </article>
+            </a>
+            {% endfor %}
+          </div>
+
+          <p class="examples-footnote">
+            Every dish auto-calculated. Every allergen surfaced. Zero manual work.
+          </p>
         </div>
       </section>
+      {% endif %}
     </main>
 
     <!-- Footer -->

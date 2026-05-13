@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Builder - NutriMenu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  </head>
+  <body>
+    {% include "_nav.html" %}
+
+    <main class="form-page">
+      <div class="form-container builder-container">
+        <header class="form-header">
+          <h1 class="form-title">
+            {% if existing_menu %}Edit Menu{% else %}Menu Builder{% endif %}
+          </h1>
+          <p class="form-subtitle">
+            <strong>{{ profile.restaurant_name }}</strong> — add or update your
+            meals and ingredients. Zero friction.
+          </p>
+        </header>
+
+        <div class="flash-stack" id="builder-feedback" hidden></div>
+
+        <!--
+          Existing-menu data is embedded as JSON so form.js can hydrate the
+          builder without an extra HTTP round-trip. Server still owns validation
+          and persistence.
+        -->
+        {% if existing_menu %}
+        <script id="existing-menu-data" type="application/json">
+          {{ existing_menu.meals | tojson }}
+        </script>
+        {% endif %}
+
+        <form
+          class="menu-form builder-form"
+          id="builder-form"
+          action="{{ url_for('create_menu') }}"
+          method="POST"
+          enctype="multipart/form-data"
+          novalidate
+        >
+          <section class="builder-section">
+            <div class="section-heading-row">
+              <h2 class="section-heading">Meals</h2>
+              <button type="button" class="form-btn form-btn-ghost" id="add-meal-btn">
+                <span aria-hidden="true">+</span> Add Meal
+              </button>
+            </div>
+
+            <div class="meal-list" id="meal-list"></div>
+
+            <p class="empty-hint" id="empty-meal-hint">
+              No meals yet. Click <strong>Add Meal</strong> to begin.
+            </p>
+          </section>
+
+          <!-- ===== Templates (cloned by JS) ===== -->
+          <template id="meal-template">
+            <article class="meal-block" data-meal-index="">
+              <header class="meal-block-header">
+                <h3 class="meal-block-title">Meal <span class="meal-number"></span></h3>
+                <button type="button" class="icon-btn remove-meal-btn" aria-label="Remove meal">
+                  &times;
+                </button>
+              </header>
+
+              <div class="form-group">
+                <label class="form-label">Meal Name</label>
+                <input
+                  type="text"
+                  class="form-input meal-name-input"
+                  placeholder="e.g., Grilled Salmon with Lemon Butter"
+                  maxlength="120"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea
+                  class="form-textarea meal-description-input"
+                  rows="2"
+                  placeholder="A short, appetizing description of the dish."
+                  maxlength="500"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Meal Photo</label>
+                <div class="file-upload">
+                  <input
+                    type="file"
+                    class="file-input meal-photo-input"
+                    accept="image/png, image/jpeg, image/jpg, image/webp"
+                  />
+                  <label class="file-label meal-photo-label">
+                    <div class="image-preview meal-photo-preview" hidden></div>
+                    <span class="file-icon meal-photo-icon">📷</span>
+                    <span class="file-text meal-photo-text">
+                      Choose a photo (PNG, JPG, WEBP)
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="section-heading-row tight">
+                  <label class="form-label">Ingredients</label>
+                  <button type="button" class="form-btn form-btn-ghost small add-ingredient-btn">
+                    <span aria-hidden="true">+</span> Add Ingredient
+                  </button>
+                </div>
+                <div class="ingredient-list"></div>
+              </div>
+            </article>
+          </template>
+
+          <template id="ingredient-template">
+            <div class="ingredient-row">
+              <input
+                type="text"
+                class="form-input ingredient-name-input"
+                placeholder="Ingredient (e.g., Salmon fillet)"
+                maxlength="80"
+              />
+              <div class="weight-input-group">
+                <input
+                  type="number"
+                  class="form-input ingredient-weight-input"
+                  placeholder="e.g., 200"
+                  min="0"
+                  step="1"
+                  inputmode="numeric"
+                />
+                <span class="weight-unit">grams</span>
+              </div>
+              <button type="button" class="icon-btn remove-ingredient-btn" aria-label="Remove ingredient">
+                &times;
+              </button>
+            </div>
+          </template>
+
+          <div class="form-actions">
+            <a href="/" class="form-btn form-btn-secondary">Cancel</a>
+            <button type="submit" class="form-btn form-btn-primary" id="submit-btn">
+              {% if existing_menu %}Save Changes &amp; Preview{% else %}Save Menu &amp; Preview{% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/form.js') }}"></script>
+  </body>
+</html>

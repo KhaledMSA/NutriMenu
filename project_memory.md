@@ -11,13 +11,15 @@
 
 ### MVP Phased Approach
 
-| Phase       | Deliverable                                  | Status         |
-| ----------- | -------------------------------------------- | -------------- |
-| **Phase 1** | Static Landing Page explaining the product   | ✅ Completed   |
-| **Phase 2** | Login / Authentication system (Auth0)        | 🔄 In Progress |
-| **Phase 3** | Data Entry Form for restaurant owners        | ⬜ Planned     |
-| **Phase 4** | Dynamic Menu Generation from form inputs     | ⬜ Planned     |
-| **Phase 5** | Update Landing Page with a live menu example | ⬜ Planned     |
+| Phase        | Deliverable                                                                 | Status         |
+| ------------ | --------------------------------------------------------------------------- | -------------- |
+| **Phase 1**  | Static Landing Page explaining the product                                  | ✅ Completed   |
+| **Phase 2**  | Login / Authentication system (Auth0)                                       | ✅ Completed   |
+| **Phase 3**  | Account-Tied Menu Builder (1 Account = 1 Restaurant = 1 Menu)               | ✅ Completed   |
+| **Phase 4a** | Public slug routing `/menu/<slug>`, Owner Dashboard, distinct nav links     | ✅ Completed   |
+| **Phase 4b** | SQLite persistence, durable slug history, multi-tenant retrieval            | 🔄 In Progress |
+| **Phase 5**  | Nutritional Engine + Allergen API integration                                | ⬜ Planned     |
+| **Phase 6**  | Update Landing Page with a live, owner-curated menu showcase                 | ⬜ Planned     |
 
 ### Architecture Notes (Future Integrations)
 
@@ -94,6 +96,12 @@ NutriMenu/
 | 2026-05-09 | Flask + SQLite + Vanilla JS stack selected   | Simplicity, no framework overhead       |
 | 2026-05-09 | English-only constraint established          | Consistency across code and UI          |
 | 2026-05-12 | Auth0 selected for Phase 2 Authentication    | "Enterprise-grade security, free tier"  |
+| 2026-05-14 | Introduced `/menu/<restaurant_slug>` as the canonical, **public**, unauthenticated viewer route. Removed the owner-gated `/menu/preview`. | Digital menus are meant to be shared (QR codes, links). Authentication on the viewer was a regression against product intent. Read access is now fully public; only create/edit/profile remain auth-gated. |
+| 2026-05-14 | Added `/dashboard` as the post-login landing page and the central hub for owners. Replaced single-button nav with distinct links (Dashboard, My Profile, Create/Edit Menu, Logout). | A single overloaded CTA forced JS branching and confused users. A dedicated dashboard + explicit nav matches the mental model of a SaaS owner and lets us add owner-only features (analytics, share QR) without polluting other pages. |
+| 2026-05-14 | Routing decisions migrated from JS to Jinja2 (server-rendered hrefs); removed `data-action="start"` + "feature coming soon" notification system. | SoC: the server knows the auth state authoritatively; making the client re-derive it via DOM sniffing was fragile and produced misleading "coming soon" toasts after the feature already shipped. |
+| 2026-05-14 | Added in-memory demo restaurants (`olive-grove`, `sakura-house`, `trattoria-luce`) seeded at module load and linked from the landing page Menu Examples. | The landing page now demonstrates the finished product end-to-end without requiring a visitor account. Demos are isolated under a synthetic owner so a real Auth0 account can never collide with them. |
+| 2026-05-14 | Slug allocation uses `slugify(name)` with a uniqueness guard and a per-owner reverse index (`owner_by_slug`). | Public URLs must be stable, human-readable, and impossible to spoof. Keying ownership by the immutable Auth0 `sub` plus a separate slug→sub index keeps URLs safe to share and resilient to future SQLite migration. |
+| 2026-05-14 | Adopted Flask-SQLAlchemy + SQLite (`nutrimenu.db`) for persistent storage; replaced the in-memory `profiles_by_owner` / `menus_by_owner` / `owner_by_slug` dicts with `User` / `Meal` / `Ingredient` models keyed on the Auth0 `sub`. `flask init-db` now runs `db.create_all()`. | The in-memory stores lost every profile and menu on server restart, blocking real testing and deployment to Render. Moving to SQLite via SQLAlchemy gives durable owner-scoped data, lets slugs survive restarts as a public contract, and prepares the schema for the Phase 5 nutrition/allergen joins without further migration. |
 
 ## 7. Setup & Deployment
 

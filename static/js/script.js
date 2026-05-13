@@ -4,151 +4,12 @@
  */
 
 // ===== DOM Ready Handler =====
+// Routing decisions live in Flask/Jinja2 (server-rendered hrefs).
+// This file only handles non-routing UI polish: animations and header effects.
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("NutriMenu Landing Page - Loaded");
-
-  // Initialize all interactive features
-  initializeClickHandlers();
   initializeScrollAnimations();
   initializeHeaderEffects();
 });
-
-// ===== Click Handlers for Action Buttons =====
-/**
- * Initialize click handlers for all action buttons
- * Routes different button actions to appropriate functions
- */
-function initializeClickHandlers() {
-  // Get all buttons with data-action attribute
-  const actionButtons = document.querySelectorAll("[data-action]");
-
-  actionButtons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      const action = this.getAttribute("data-action");
-      handleButtonAction(action, e);
-    });
-  });
-}
-
-/**
- * Handle button clicks based on action type
- * @param {string} action - The action type from data-action attribute
- * @param {Event} event - The click event object
- */
-function handleButtonAction(action, event) {
-  event.preventDefault();
-
-  switch (action) {
-    case "login":
-      handleLoginClick();
-      break;
-    case "start":
-      handleStartClick();
-      break;
-    default:
-      console.log("Action triggered:", action);
-  }
-}
-
-/**
- * Handle login button click
- * Redirects the user to the Flask /login route (Auth0)
- */
-function handleLoginClick() {
-  window.location.href = "/login";
-}
-
-/**
- * Handle start/CTA button click
- * Redirects to login if logged out. Shows notification if logged in.
- */
-function handleStartClick() {
-  // Check if user is logged in by looking for the logout button in the DOM
-  const isUserLoggedIn = document.querySelector('a[href="/logout"]') !== null;
-
-  if (isUserLoggedIn) {
-    showNotification(
-      "Welcome back! Menu builder (Phase 3) coming soon.",
-      "success",
-    );
-    // Future Phase 3 Route: window.location.href = '/create-menu';
-  } else {
-    window.location.href = "/login";
-  }
-}
-
-/**
- * Display a temporary notification to the user
- * @param {string} message - The message to display
- * @param {string} type - Type of notification: 'info', 'success', 'error', 'warning'
- */
-function showNotification(message, type = "info") {
-  // Create notification container if it doesn't exist
-  let notificationContainer = document.getElementById("notification-container");
-
-  if (!notificationContainer) {
-    notificationContainer = document.createElement("div");
-    notificationContainer.id = "notification-container";
-    notificationContainer.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            max-width: 400px;
-            pointer-events: none;
-        `;
-    document.body.appendChild(notificationContainer);
-  }
-
-  // Create notification element
-  const notification = document.createElement("div");
-  notification.className = `notification notification-${type}`;
-  notification.style.cssText = `
-        background-color: ${getNotificationColor(type)};
-        color: #f5f5f7;
-        padding: 16px 20px;
-        border-radius: 8px;
-        margin-bottom: 12px;
-        font-size: 14px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-        animation: slideInRight 0.3s ease-out;
-        pointer-events: auto;
-        cursor: pointer;
-    `;
-
-  notification.textContent = message;
-
-  // Add close on click
-  notification.addEventListener("click", function () {
-    this.style.animation = "slideInRight 0.3s ease-out reverse";
-    setTimeout(() => this.remove(), 300);
-  });
-
-  notificationContainer.appendChild(notification);
-
-  // Auto-remove after 4 seconds
-  setTimeout(() => {
-    if (notification.parentElement) {
-      notification.style.animation = "slideInRight 0.3s ease-out reverse";
-      setTimeout(() => notification.remove(), 300);
-    }
-  }, 4000);
-}
-
-/**
- * Get notification background color based on type
- * @param {string} type - Type of notification
- * @returns {string} CSS color value
- */
-function getNotificationColor(type) {
-  const colors = {
-    info: "#6366f1", // Indigo
-    success: "#10b981", // Green
-    error: "#ef4444", // Red
-    warning: "#f59e0b", // Amber
-  };
-  return colors[type] || colors["info"];
-}
 
 // ===== Scroll Animation Handler =====
 /**
@@ -229,22 +90,6 @@ document.addEventListener("click", function (e) {
         behavior: "smooth",
         block: "start",
       });
-    }
-  }
-});
-
-// ===== Accessibility: Keyboard Navigation =====
-/**
- * Add keyboard accessibility for buttons
- * Allows Tab navigation and Enter/Space activation
- */
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" || e.key === " ") {
-    const activeElement = document.activeElement;
-
-    if (activeElement && activeElement.getAttribute("data-action")) {
-      if (e.key === " ") e.preventDefault(); // Prevent page scroll on Space
-      activeElement.click();
     }
   }
 });
