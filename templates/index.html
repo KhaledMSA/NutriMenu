@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NutriMenu - AI-Powered Digital Restaurant Menus</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
@@ -184,7 +185,19 @@
                   {% endif %}
                 </div>
                 <div class="example-card-body">
-                  <h3 class="example-card-name">{{ item.restaurant_name }}</h3>
+                  <div class="example-card-heading">
+                    {% if item.logo_filename %}
+                      <img
+                        class="example-card-logo"
+                        src="{{ url_for('static', filename='uploads/' + item.logo_filename) }}"
+                        alt="{{ item.restaurant_name }} logo"
+                        loading="lazy"
+                      />
+                    {% else %}
+                      <div class="example-card-logo example-card-logo-placeholder" aria-hidden="true">🍽️</div>
+                    {% endif %}
+                    <h3 class="example-card-name">{{ item.restaurant_name }}</h3>
+                  </div>
                   <p class="example-card-desc">
                     {{ item.meal_count }} meal{{ '' if item.meal_count == 1 else 's' }}
                     {% if item.first_meal_name %} · {{ item.first_meal_name }}{% endif %}

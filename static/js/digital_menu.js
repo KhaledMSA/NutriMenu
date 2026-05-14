@@ -43,11 +43,13 @@
       modalImage.appendChild(placeholder);
     }
 
-    // Ingredients list.
+    // Ingredients — rendered as inline chips so they read as a single
+    // continuous line that wraps naturally rather than a vertical list.
     modalIngredients.innerHTML = "";
     const items = Array.isArray(meal.ingredients) ? meal.ingredients : [];
     if (items.length === 0) {
       const li = document.createElement("li");
+      li.className = "ingredient-empty";
       li.textContent = "Ingredients not listed.";
       modalIngredients.appendChild(li);
     } else {
@@ -56,11 +58,15 @@
         const nameSpan = document.createElement("span");
         nameSpan.className = "ingredient-name";
         nameSpan.textContent = item.name || "";
-        const amountSpan = document.createElement("span");
-        amountSpan.className = "ingredient-amount";
-        amountSpan.textContent = item.amount || "";
         li.appendChild(nameSpan);
-        li.appendChild(amountSpan);
+
+        const grams = item.amount_grams;
+        if (grams !== null && grams !== undefined && grams !== "") {
+          const amountSpan = document.createElement("span");
+          amountSpan.className = "ingredient-amount";
+          amountSpan.textContent = grams + "g";
+          li.appendChild(amountSpan);
+        }
         modalIngredients.appendChild(li);
       });
     }

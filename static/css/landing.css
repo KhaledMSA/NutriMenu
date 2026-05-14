@@ -96,10 +96,35 @@
   gap: var(--spacing-sm);
 }
 
+.example-card-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.example-card-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.example-card-logo-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
 .example-card-name {
   margin: 0;
   font-size: var(--font-size-xl);
   color: var(--text-primary);
+  line-height: var(--line-height-tight);
 }
 
 .example-card-desc {

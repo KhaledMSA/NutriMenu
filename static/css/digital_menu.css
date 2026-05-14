@@ -216,10 +216,14 @@
 }
 
 .meal-modal-image {
-  width: 100%;
-  aspect-ratio: 16 / 9;
+  width: calc(100% - var(--spacing-xl) * 2);
+  margin: var(--spacing-xl) var(--spacing-xl) 0;
+  aspect-ratio: 3 / 2;
+  max-height: 360px;
   background: var(--bg-tertiary);
   overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 
 .meal-modal-image img {
@@ -227,6 +231,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.meal-modal-image:hover img {
+  transform: scale(1.02);
 }
 
 .meal-modal-image-placeholder {
@@ -272,18 +281,22 @@
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-sm);
+  align-items: center;
+  line-height: 1.6;
 }
 
 .meal-modal-ingredients li {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--spacing-md);
-  padding: var(--spacing-sm) var(--spacing-md);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  padding: 0.35em 0.85em;
   background: var(--bg-tertiary);
-  border-radius: 8px;
-  font-size: var(--font-size-base);
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
 }
 
 .meal-modal-ingredients .ingredient-name {
@@ -293,6 +306,15 @@
 .meal-modal-ingredients .ingredient-amount {
   color: var(--text-tertiary);
   font-variant-numeric: tabular-nums;
+  font-size: 0.85em;
+}
+
+.meal-modal-ingredients .ingredient-empty {
+  color: var(--text-tertiary);
+  font-style: italic;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 /* ===== Calorie & Allergen Meta (placeholders for Phase 5) ===== */
@@ -347,6 +369,13 @@
 @media (max-width: 480px) {
   .menu-restaurant-name {
     font-size: var(--font-size-3xl);
+  }
+
+  .meal-modal-image {
+    width: calc(100% - var(--spacing-lg) * 2);
+    margin: var(--spacing-lg) var(--spacing-lg) 0;
+    aspect-ratio: 4 / 3;
+    max-height: 240px;
   }
 
   .meal-modal-content {
