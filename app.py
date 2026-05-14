@@ -8,6 +8,7 @@ one restaurant profile == one menu (cascading meals + ingredients).
 """
 
 from flask import Flask, render_template, jsonify, session, redirect, url_for, request, flash, abort
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_sqlalchemy import SQLAlchemy
 from authlib.integrations.flask_client import OAuth
 from werkzeug.utils import secure_filename
@@ -25,6 +26,12 @@ load_dotenv()
 app = Flask(__name__,
             template_folder=os.path.join(os.path.dirname(__file__), 'templates'),
             static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+
+# ===== Reverse Proxy Fix (Render / any TLS-terminating proxy) =====
+# Render terminates SSL at its edge and forwards plain HTTP to the app. Without
+# this, `url_for(..., _external=True)` builds `http://` URLs and Auth0 rejects
+# the callback as a mismatch. Trust exactly one hop of X-Forwarded-* headers.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 # ===== Configuration =====
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
